@@ -1,13 +1,18 @@
-import express from "express";
-import {
+const express = require("express");
+const {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-} from "firebase/auth";
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
-import { auth, db } from "./firebase/firebaseConfig";
+} = require("firebase/auth");
+const { auth, db } = require("./firebase/firebaseConfig");
+const {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+} = require("firebase/firestore");
 
 const app = express();
-const router = express.Router();
 const port = 4000;
 
 app.use(express.json());
