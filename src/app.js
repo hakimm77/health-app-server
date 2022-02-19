@@ -13,7 +13,7 @@ const {
 } = require("firebase/firestore");
 
 const app = express();
-const port = 4000;
+const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
 
@@ -67,6 +67,6 @@ app.post("/getAccountInfo", async (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  return console.log(`Listening on port: ${port}`);
+app.listen(PORT, () => {
+  return console.log(`Listening on port: ${PORT}`);
 });
