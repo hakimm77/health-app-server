@@ -125,6 +125,17 @@ app.get("/connect-dexcom", async (req, res) => {
   const fullUrl = url.parse(req.url, true);
   const { code, state } = fullUrl.query;
 
+  var options = {
+    method: "POST",
+    hostname: "api.dexcom.com",
+    port: null,
+    path: "/v2/oauth2/token",
+    headers: {
+      "content-type": "application/x-www-form-urlencoded",
+      "cache-control": "no-cache",
+    },
+  };
+
   var request = http.request(options, (result) => {
     var chunks = [];
 
@@ -153,7 +164,7 @@ app.get("/connect-dexcom", async (req, res) => {
         client_id: "MtO4CwJyz9yXacjPiH7kuHKNXKnY4HaE",
         code: code,
         grant_type: "authorization_code",
-        redirect_uri: "http://192.168.1.14:4000/connect-dexcom",
+        redirect_uri: "https://polar-river-98280.herokuapp.com/connect-dexcom",
       },
       null,
       null,
