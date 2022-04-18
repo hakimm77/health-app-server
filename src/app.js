@@ -25,7 +25,7 @@ app.use(express.json());
 //https://api.dexcom.com/v2/oauth2/login?client_id=MtO4CwJyz9yXacjPiH7kuHKNXKnY4HaE&redirect_uri=http://localhost:4000/connect-dexcom&response_type=code&scope=offline_access&state=value
 
 app.get("/test", (req, res) => {
-  res.send("Hello World!");
+  res.send(`<h3>Connection managed! you can go back to the health app </h3>`);
 });
 
 app.post("/refresh-token", async (req, res) => {
@@ -67,7 +67,7 @@ app.post("/refresh-token", async (req, res) => {
         client_id: "MtO4CwJyz9yXacjPiH7kuHKNXKnY4HaE",
         refresh_token: refreshToken,
         grant_type: "refresh_token",
-        redirect_uri: "http://localhost:4000/connect-dexcom",
+        redirect_uri: "https://polar-river-98280.herokuapp.com/connect-dexcom",
       },
       null,
       null,
@@ -162,7 +162,7 @@ app.get("/connect-dexcom", async (req, res) => {
   );
   request.end();
 
-  res.json({ code: code, state: state });
+  res.send(`<h3>Connection managed! you can go back to the health app </h3>`);
 });
 
 app.post("/authenticate", async (req, res) => {
