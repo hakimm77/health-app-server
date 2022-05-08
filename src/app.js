@@ -22,10 +22,30 @@ const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
 
-//https://api.dexcom.com/v2/oauth2/login?client_id=MtO4CwJyz9yXacjPiH7kuHKNXKnY4HaE&redirect_uri=http://localhost:4000/connect-dexcom&response_type=code&scope=offline_access&state=value
-
 app.get("/test", (req, res) => {
-  res.send(`<h3>Connection managed! you can go back to the health app </h3>`);
+  res.send(`<h1>Connection managed! you can go back to the health app </h1>`);
+});
+
+app.get("/get-users-data", async (req, res) => {
+  getDocs(collection(db, `/users`)).then(async (response) => {
+    let arr = [];
+
+    await response.forEach(async (child) => {
+      arr = [...arr, child.data()];
+    });
+
+    console.log(arr);
+
+    res.json(arr);
+  });
+});
+
+app.post("/save-results", async (req, res) => {
+  const { uid, data } = req.body;
+
+  updateDoc(doc(db, `users/${uid}`), {
+    data: data,
+  });
 });
 
 app.post("/refresh-token", async (req, res) => {
@@ -93,7 +113,7 @@ app.post("/get-glucose", async (req, res) => {
     const oneMonthAgo = `${date.getFullYear()}-${String(
       date.getMonth() + 1
     ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
-
+    console.log(today);
     var options = {
       method: "GET",
       hostname: "api.dexcom.com",
@@ -119,6 +139,8 @@ app.post("/get-glucose", async (req, res) => {
 
     request.end();
   });
+
+  console.log("heyvye");
 });
 
 app.get("/connect-dexcom", async (req, res) => {
