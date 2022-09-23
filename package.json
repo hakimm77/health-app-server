@@ -2,10 +2,10 @@
   "name": "health-app-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -20,6 +20,8 @@
     "@types/firebase": "^3.2.1",
     "dotenv": "^16.0.2",
     "express": "^4.17.2",
-    "firebase": "^9.6.6"
+    "express-graphql": "^0.12.0",
+    "firebase": "^9.6.6",
+    "graphql": "^16.6.0"
   }
 }
