@@ -3,17 +3,37 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLBoolean,
+  GraphQLList,
+  GraphQLInt,
+  GraphQLNonNull,
 } = require("graphql");
 
-const schema = new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: "heybye",
-    fields: () => ({
-      message: { type: GraphQLString, resolve: () => "heybye message" },
-      GoodBook: { type: GraphQLBoolean, resolve: () => true },
-      author: { type: GraphQLString, resolve: () => "hakim hamaili" },
-    }),
+const userWeights = [
+  { value: "85.5" },
+  { value: "87" },
+  { value: "63" },
+  { value: "83.8" },
+];
+
+const userWeightType = new GraphQLObjectType({
+  name: "weight",
+  fields: () => ({
+    value: { type: GraphQLString },
   }),
+});
+
+const RootQuery = new GraphQLObjectType({
+  name: "GET_USER_WEIGHTS",
+  fields: () => ({
+    userWeights: {
+      type: new GraphQLList(userWeightType),
+      resolve: () => userWeights,
+    },
+  }),
+});
+
+const schema = new GraphQLSchema({
+  query: RootQuery,
 });
 
 module.exports = { schema };
